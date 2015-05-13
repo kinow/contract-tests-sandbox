@@ -1,38 +1,23 @@
 package br.eti.kinoshita.coupon;
 
 import org.junit.runner.RunWith;
-import org.xenei.junit.contract.Contract;
-import org.xenei.junit.contract.ContractImpl;
-import org.xenei.junit.contract.ContractSuite;
+import org.xenei.junit.contract.ContractTestRunner;
 import org.xenei.junit.contract.IProducer;
 
-@RunWith(ContractSuite.class)
-@ContractImpl(value = CouponGeneratorImpl.class)
-public class CouponGeneratorImplTest {
-
-	protected IProducer<CouponGenerator> couponGeneratorProducer;
+@RunWith(ContractTestRunner.class)
+public class CouponGeneratorImplTest extends CouponGeneratorContractTest<CouponGeneratorImpl> {
 
 	public CouponGeneratorImplTest() {
-		couponGeneratorProducer = new IProducer<CouponGenerator>() {
+		setProducer(new IProducer<CouponGeneratorImpl>() {
 
 			public void cleanUp() {
 				// nothing to do
 			}
 
-			public CouponGenerator newInstance() {
+			public CouponGeneratorImpl newInstance() {
 				return new CouponGeneratorImpl(true);
 			}
-		};
-	}
-
-	@Contract.Inject
-	// define the method to set producer.
-	public final void setProducer(IProducer<CouponGenerator> producer) {
-		this.couponGeneratorProducer = producer;
-	}
-
-	protected final IProducer<CouponGenerator> getProducer() {
-		return couponGeneratorProducer;
+		});
 	}
 
 }
